@@ -1,9 +1,11 @@
-public class Cat {
+public class Cat implements Cloneable{
 
     private String color;
+    private Voice voice;
 
-    public Cat(String color) {
+    public Cat(String color, Voice voice) {
         this.color = color;
+        this.voice = voice;
     }
 
     Boolean equals(Cat catInput) {
@@ -16,18 +18,22 @@ public class Cat {
 
     @Override
     public String toString() {
-        return this.color + " cat";
+        return voice.mau();
     }
 
-    /* @Override
+    @Override
     public int hashCode() {
         return 7;
-    } */
+    }
 
-    public Cat clone() {
+    /*public Cat clone() {
         Cat cat = new Cat(color);
         cat.color = this.color;
         return cat;
+    }*/
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
 }

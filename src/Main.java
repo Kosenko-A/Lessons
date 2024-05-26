@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -6,7 +10,45 @@ public class Main {
         //thirdExample();
         //fourthExample();
         //example5();
-        //example6();
+        try {
+            example6();
+        } catch (CloneNotSupportedException e) {
+            System.out.println("ошибка");
+        }
+
+        ArrayList<String> listNames = new ArrayList<>();
+        listNames.add("Sasha");
+        listNames.get(0);
+        listNames.size();
+        listNames.set(0, "Masha");
+
+
+        HashMap<String, String> hm = new HashMap<>();
+        hm = fillCollection(hm);
+        for (HashMap.Entry<String, String> o : hm.entrySet()) {
+            System.out.println(o.getKey() + ": " + o.getValue());
+        }
+        Voice voice = new Voice();
+        Cat cat = new Cat("Black", voice);
+        System.out.println(cat);
+        voice.mau();
+
+        method1(cat);
+
+
+    }
+
+    public static HashMap<String, String> fillCollection(HashMap<String, String> hm) {
+        hm.put("Russia", "Moscow");
+        hm.put("France", "Paris");
+        hm.put("Germany", "Berlin");
+        hm.put("Norway", "Oslo");
+
+        return hm;
+    }
+
+    public static void method1(Cat cat){
+        System.out.println(cat);
     }
 
     public static void firstExample() {
@@ -72,9 +114,9 @@ public class Main {
         System.out.println(bella instanceof Cat);
     }
 
-    public static void example6() {
+    public static void example6() throws CloneNotSupportedException {
         Cat kitty = new Cat("White");
-        Cat cat = kitty.clone();
+        Object cat = kitty.clone();
         System.out.println(cat);
     }
 }
