@@ -1,122 +1,105 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        //firstExample();
-        //secondExample();
-        //thirdExample();
-        //fourthExample();
-        //example5();
-        try {
-            example6();
-        } catch (CloneNotSupportedException e) {
-            System.out.println("ошибка");
+        //do1Task();
+
+        /*TelephoneBook book = new TelephoneBook();
+        book.add("Вадим", "896196543");
+        book.add("Катя", "896197788");
+        System.out.println(book.get("Вадим"));
+        System.out.println(book.get("Катя"));
+        System.out.println(book.get("Саша"));*/
+
+        //doTask1();
+        //doTask2();
+        //doTask3();
+
+        Box<Paper> boxForPaper = new Box<>();
+        Paper paper = new Paper();
+        boxForPaper.putItem(paper);
+
+        Box<Glass> boxForGlass = new Box<>();
+        Glass glass = new Glass();
+        boxForGlass.putItem(glass);
+
+        Glass gl = boxForGlass.getItem();
+        gl.toGl();
+
+        TwoCellsBox<Paper, Glass> plasticGlassBox = new TwoCellsBox<>();
+    }
+
+
+    public static void do1Task() {
+        // Создать массив с набором слов (10-20 слов, должны встречаться повторяющиеся).
+        String [] words = {"cat", "dog", "cat", "watermelon", "kiwi", "kiwi", "banana", "cat", "watermelon", "cat"};
+
+        List<String> wordsList = Arrays.asList(words);
+        System.out.println("Все элементы коллекции: " + wordsList);
+
+
+        // Найти и вывести список уникальных слов, из которых состоит массив (дубликаты не считаем).
+        Set<String> wordsSet = new HashSet<>(wordsList);
+        System.out.println("Неповторяющиеся элементы коллекции: " + wordsSet);
+
+
+        // Посчитать, сколько раз встречается каждое слово.
+        Map<String, Integer> checkWords = new HashMap<>();
+        for (String i: wordsList){
+            if (checkWords.containsKey(i)){
+                Integer point = checkWords.get(i);
+                point++;
+                checkWords.put(i, point);
+            } else {
+                checkWords.put(i, 1);
+            }
         }
+        System.out.println(checkWords);
+    }
 
-        ArrayList<String> listNames = new ArrayList<>();
-        listNames.add("Sasha");
-        listNames.get(0);
-        listNames.size();
-        listNames.set(0, "Masha");
+    public static void doTask1(){
+        // Массив предназначен для хранения значений ростов двенадцати человек.
+        // помощью датчика случайных чисел заполнить массив целыми значениями,
+        // лежащими в диапазоне от 163 до 190 включительно.
 
-
-        HashMap<String, String> hm = new HashMap<>();
-        hm = fillCollection(hm);
-        for (HashMap.Entry<String, String> o : hm.entrySet()) {
-            System.out.println(o.getKey() + ": " + o.getValue());
+        List<Integer> heights = new ArrayList<>();
+        for (int i = 0; i<=12; i++){
+            heights.add(i, generateRandomValue());
         }
-        Voice voice = new Voice();
-        Cat cat = new Cat("Black", voice);
-        System.out.println(cat);
-        voice.mau();
-
-        method1(cat);
-
-
+        System.out.println(heights);
+    }
+    public static int generateRandomValue(){
+        int v = (int)(Math.random()*(190-163+1)+163);
+        return v;
     }
 
-    public static HashMap<String, String> fillCollection(HashMap<String, String> hm) {
-        hm.put("Russia", "Moscow");
-        hm.put("France", "Paris");
-        hm.put("Germany", "Berlin");
-        hm.put("Norway", "Oslo");
+    public static void doTask2(){
+        //Используя датчик случайных чисел, заполнить массив из двадцати элементов неповторяющимися числами.
 
-        return hm;
-    }
-
-    public static void method1(Cat cat){
-        System.out.println(cat);
-    }
-
-    public static void firstExample() {
-        int num = 6;
-        System.out.println("My favourite number is " + num);
-    }
-
-    public static void secondExample() {
-        //Сравнение примитивных типов
-        int a = 7;
-        int b = 6;
-        if (a == b){
-            System.out.println("false");
+        HashSet<Integer> uniqueValues = new HashSet<>();
+        for (int i = 0; i<=20; i++){
+            uniqueValues.add((int)(Math.random()*1000));
         }
+        System.out.println(uniqueValues);
+    }
+    public static void doTask3(){
+        //Заполнить массив:
+        // двадцатью первыми натуральными числами, делящимися нацело на 13 или на 17
+        // и находящимися в интервале, левая граница которого равна 300;
 
-        //Сравнение строк (строки - это как и объекты ссылочный тип данных)
-        String s1 = "кот";
-        String s2 = "кот";
-        System.out.println(s1.equals(s2));
+        List<Integer>naturalValues = new ArrayList<>();
+        int check = 0;
+        int val = 300;
+
+        do {
+            if ((val%13 ==0) || (val%17 ==0)){
+                naturalValues.add(val);
+                check++;
+            }
+            val++;
+        } while (check !=20);
+        System.out.println(naturalValues);
     }
 
-    public static void thirdExample() {
-        Integer i = new Integer(1);
-        Integer j = new Integer(1);
-        System.out.println(i==j);
-
-        Integer n = new Integer(1);
-        Integer m = n;
-        System.out.println(n==m);
-
-        if (n.hashCode() == m.hashCode()) {
-            System.out.println("Объекты равны по хэшкодам");
-        } else {
-            System.out.println("Объекты не равны по хэшкодам");
-        }
-    }
-
-    public static void fourthExample() {
-        Cat bella = new Cat("Black");
-        Cat murka = new Cat("Orange");
-        Cat murzik = new Cat("Black");
-
-        System.out.println(bella.equals(murka));
-        System.out.println(murzik.equals(bella));
-
-        //toString
-        System.out.println(murka);
-
-        //Hash code
-        //можно вывести для сравнения
-        System.out.println(murzik.hashCode());
-
-        if (bella.hashCode() == murzik.hashCode()) {
-            System.out.println("Объекты равны по хэшкодам");
-        } else {
-            System.out.println("Объекты не равны по хэшкодам");
-        }
-    }
-
-    public static void example5() {
-        Cat bella = new Cat("Black");
-        System.out.println(bella.getClass());
-        System.out.println(bella instanceof Cat);
-    }
-
-    public static void example6() throws CloneNotSupportedException {
-        Cat kitty = new Cat("White");
-        Object cat = kitty.clone();
-        System.out.println(cat);
-    }
 }
